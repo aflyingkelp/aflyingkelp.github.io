@@ -1,0 +1,38 @@
+{
+  "game": "th10",
+  "builtAt": "2026-10-28T04:25:32.436Z",
+  "protocol": "eagler-touhou/1",
+  "adapter": "sdl3-eagler",
+  "profile": "multiplayer",
+  "product": "th10mp",
+  "variant": "multiplayer",
+  "version": "3.5.1-sdl3",
+  "features": {
+    "thprac": false,
+    "languages": true,
+    "focusHitbox": false,
+    "multiplayer": true
+  },
+  "music": [
+    "ogg-stream",
+    "ogg-full",
+    "none"
+  ],
+  "touchReplay": false,
+  "execution": {
+    "kind": "cpp-sdl3",
+    "sha256": "154df4bdfd516545fcf044aca84763081b568c8a560b6a5956b36c9b502ea2fc",
+    "loaderSha256": "7b50fa5c562e0a77348d97194b1ce8bf3c589bc22080b3e2a950a4d5208b5ed9",
+    "architecture": {
+      "loop": "cpp-rollback-budgeted-recovery-and-phase-preserving-cadence",
+      "audio": "miniaudio-sdl3",
+      "renderer": "cpp-gles-semantic-batched",
+      "graphicsInterface": "semantic-state-texture-matrix",
+      "vertexUpload": "web-bufferData-direct-game-batches-cached-vao",
+      "files": "sdl-io-idbfs",
+      "fonts": "sdl3-ttf",
+      "input": "cpp-sdl",
+      "launcher": "eagler-touhou/1"
+    }
+  }
+}

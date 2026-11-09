@@ -1,0 +1,366 @@
+<!DOCTYPE html><html lang="en" data-ui-locale="en" data-original-entry="library"><head><meta charSet="utf-8"/><link rel="stylesheet" href="site-custom.css"/><script src="site-custom.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><link rel="preload" as="image" href="assets/room-caret-right.svg"/><link rel="preload" as="image" href="assets/site-menu.svg"/><link rel="preload" as="image" href="assets/room-users.svg"/><title data-i18n="site.documentTitle">Touhou Project Original STGs ~ EAGLER TOUHOU</title><meta name="theme-color" content="#10100f"/><meta name="color-scheme" content="dark"/><meta name="description" content="A platform that brings the original Touhou STG games to the web with near-pixel-perfect accuracy, together with multiplayer mods, translations, high-refresh-rate support, touch controls, and thprac." data-i18n-content="site.description"/><meta property="og:type" content="website"/><meta property="og:site_name" content="EAGLER TOUHOU"/><meta property="og:title" content="Touhou Project Original STGs ~ EAGLER TOUHOU" data-i18n-content="site.documentTitle"/><meta property="og:description" content="A platform that brings the original Touhou STG games to the web with near-pixel-perfect accuracy, together with multiplayer mods, translations, high-refresh-rate support, touch controls, and thprac." data-i18n-content="site.description"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-title" content="EAGLER TOUHOU"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/><link rel="manifest" href="site.webmanifest"/><link rel="apple-touch-icon" sizes="180x180" href="assets/pwa/apple-touch-icon.png"/><link rel="icon" href="assets/favicon.ico" type="image/x-icon"/><link rel="preload" href="/assets/launcher-background-BiUjKY5p.webp" as="image" fetchPriority="high"/><link rel="preload" href="/assets/touhou98-DT4VlVq-.woff2" as="font" type="font/woff2" crossorigin="anonymous"/><link rel="preload" href="/assets/yatra-one-latin-D3UULBaH.woff2" as="font" type="font/woff2" crossorigin="anonymous"/><link rel="preload" href="/assets/chill-round-gothic-site-medium-critical-GINwbEIH.woff2" as="font" type="font/woff2" crossorigin="anonymous"/><link rel="preload" href="/assets/chill-round-gothic-site-bold-critical-BeC4Rmc5.woff2" as="font" type="font/woff2" crossorigin="anonymous"/><meta name="eagler-react-app-shell" content="{&quot;schema&quot;:&quot;eagler-touhou/react-app-shell/1&quot;,&quot;origin&quot;:&quot;same-origin&quot;,&quot;mountPath&quot;:&quot;/&quot;}"/><link rel="modulepreload" href="/assets/manifest-1c6e11d6.js"/><link rel="modulepreload" href="/assets/entry.client-DbcLqyPP.js"/><link rel="modulepreload" href="/assets/components-DCXasuDn.js"/><link rel="modulepreload" href="/assets/jsx-runtime-dLopkF8M.js"/><link rel="modulepreload" href="/assets/root-BjlZziWC.js"/><link rel="modulepreload" href="/assets/legacy-game-pack-BUZkXpeD.js"/><link rel="modulepreload" href="/assets/surface-BuvVOzaT.js"/><script>(function(){var lobby=/\/(?:lobby|lobby\.html)\/?$/.test(location.pathname);document.documentElement.setAttribute('data-original-entry',lobby?'lobby':'library');if(lobby){document.documentElement.setAttribute('data-lobby-boot','loading');}else{
+  (function () {
+    // Explicit one-page retry for a user who has already followed the guide.
+    // This is not persisted and does not relax checks for later visits.
+    if (/(?:\?|&)compat=continue(?:&|$)/.test(location.search)) return;
+    var ua = navigator.userAgent || "";
+    var reasons = [];
+    var mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+    var oldWindows = /Windows NT (?:[1-5]\.\d|6\.[01])(?:[;)]|$)/i.test(ua);
+    var ie = /MSIE |Trident\//i.test(ua);
+    // The Chrome/Chromium token identifies the actual Chromium engine in Edge,
+    // Opera and many Android shells. Do not mistake iOS CriOS for Chromium.
+    var chrome = /(?:Chrome|Chromium)\/(\d+)/i.exec(ua);
+    var supportedChromium = chrome && Number(chrome[1]) >= 108;
+    // New Chromium on older Windows (e.g. Supermium) is allowed. IE is never allowed.
+    if (oldWindows && !supportedChromium) reasons.push("windows");
+    if (ie) reasons.push("ie");
+    if (chrome && Number(chrome[1]) < 108) reasons.push("chrome");
+    // Equivalent to the WebGL2 context check used at get.webgl.org/webgl2/.
+    // Do not require optional GPU extensions or over-restrict software drivers.
+    if (!ie && (!oldWindows || supportedChromium) && !(chrome && Number(chrome[1]) < 108)) {
+      try {
+        var canvas = document.createElement("canvas");
+        var gl = canvas.getContext && canvas.getContext("webgl2");
+        if (!gl || (gl.isContextLost && gl.isContextLost())) reasons.push("webgl2");
+        // An ephemeral probe must not keep an extra GPU context alive.
+        if (gl && gl.getExtension) {
+          var lose = gl.getExtension("WEBGL_lose_context");
+          if (lose) lose.loseContext();
+        }
+      } catch (error) { reasons.push("webgl2"); }
+    }
+    if (reasons.length) {
+      var platform = mobile ? "mobile" : "desktop";
+      var huawei = /HUAWEI|HONOR|HarmonyOS|HMSCore/i.test(ua) ? "&huawei=1" : "";
+      location.replace("compatibility.html?reasons=" + encodeURIComponent(reasons.join(",")) + "&platform=" + platform + huawei);
+    }
+  }());
+  
+
+  (function () {
+    var startedAt = Date.now();
+    var watchdog = null;
+    var boot = {
+      version: "20260828-4",
+      stage: "html",
+      kind: "",
+      detail: "",
+      resource: "",
+      done: false
+    };
+    function compactResource(value) {
+      if (!value) return "";
+      try {
+        var url = new URL(String(value), location.href);
+        return (url.origin === location.origin ? "" : url.origin) + url.pathname;
+      } catch (_) { return String(value).slice(0, 240); }
+    }
+    function dismissPreload() {
+      var preload = document.getElementById("eaglerPreload");
+      if (!preload || preload.classList.contains("is-done")) return;
+      preload.classList.add("is-done");
+      setTimeout(function () { if (preload.isConnected) preload.remove(); }, 240);
+    }
+    function waitForCriticalVisuals() {
+      var sources = ["assets/launcher-background.webp"];
+      var cards = document.querySelectorAll(".game-shelf .game:not([hidden]) .card-art-image");
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i].closest(".game");
+        var rect = card && card.getBoundingClientRect();
+        if (!rect || rect.right < 0 || rect.left > innerWidth + 80 || rect.bottom < 0 || rect.top > innerHeight + 80) continue;
+        var source = cards[i].currentSrc || cards[i].src;
+        if (source && sources.indexOf(source) < 0) sources.push(source);
+      }
+      var images = sources.map(function (source) {
+        var image = new Image();
+        image.src = source;
+        if (image.decode) return image.decode().catch(function () {});
+        return new Promise(function (resolve) { image.onload = resolve; image.onerror = resolve; });
+      });
+      var fonts = document.fonts ? Promise.all([
+        document.fonts.load('400 16px "touhou98"', "EAGLER TOUHOU"),
+        document.fonts.load('400 16px "ET Yatra"', "EAGLER TOUHOU"),
+        document.fonts.load('700 24px "ET Chill Round"', "東方紅魔郷"),
+        document.fonts.ready
+      ]).catch(function () {}) : Promise.resolve();
+      return Promise.race([
+        Promise.all(images.concat(fonts)),
+        new Promise(function (resolve) { setTimeout(resolve, 3000); })
+      ]);
+    }
+    function diagnosis() {
+      if (boot.kind === "script-load") return "有一项启动文件未能载入。请检查网络后重新加载。";
+      if (boot.kind === "manifest") return "服务器信息暂时不可用。已安装的游戏和存档不会受到影响。";
+      if (boot.kind === "javascript") return "启动器初始化时遇到错误，可能是缓存版本不一致或浏览器兼容问题。";
+      if (boot.stage === "catalog-request" || boot.stage === "manifest-request") return "启动器初始化超时。已安装的游戏和存档不会受到影响。";
+      if (boot.stage === "app-module-request") return "启动器主程序未能开始运行。请重新加载页面。";
+      return "启动器没有在预期时间内准备完成。请重新加载页面。";
+    }
+    function diagnosticText() {
+      var online = typeof navigator.onLine === "boolean" ? String(navigator.onLine) : "unknown";
+      return [
+        "EAGLER-BOOT/1",
+        "stage=" + boot.stage,
+        "kind=" + (boot.kind || "watchdog"),
+        "elapsed_ms=" + (Date.now() - startedAt),
+        "online=" + online,
+        "resource=" + (boot.resource || "-"),
+        "detail=" + (boot.detail || "-"),
+        "ua=" + String(navigator.userAgent || "-").slice(0, 320)
+      ].join("\n");
+    }
+    function show() {
+      if (boot.done) return;
+      var old = document.getElementById("eaglerBootEmergency");
+      if (old) {
+        var oldText = document.getElementById("eaglerBootEmergencyText");
+        var oldCode = document.getElementById("eaglerBootEmergencyCode");
+        if (oldText) oldText.textContent = diagnosis();
+        if (oldCode) oldCode.textContent = diagnosticText();
+        return;
+      }
+      var panel = document.createElement("section");
+      panel.id = "eaglerBootEmergency";
+      panel.setAttribute("role", "alert");
+      panel.style.cssText = "position:fixed;z-index:2147483647;inset:0;box-sizing:border-box;display:grid;place-items:center;padding:20px;background:transparent;font:13px/1.6 system-ui,-apple-system,sans-serif;text-align:left;white-space:normal";
+      var card = document.createElement("div");
+      card.style.cssText = "box-sizing:border-box;width:min(460px,100%);max-height:min(82vh,620px);overflow:auto;padding:24px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:#191a17;color:#d8d5ce;box-shadow:0 24px 70px rgba(0,0,0,.62),inset 0 1px rgba(255,255,255,.035)";
+      var heading = document.createElement("div");
+      heading.style.cssText = "display:flex;align-items:center;gap:11px;margin-bottom:10px";
+      var status = document.createElement("i");
+      status.setAttribute("aria-hidden", "true");
+      status.style.cssText = "display:grid;flex:0 0 28px;width:28px;height:28px;place-items:center;border-radius:50%;background:rgba(239,106,88,.13);color:#ef6a58;font-style:normal;font-weight:800";
+      status.textContent = "!";
+      var title = document.createElement("strong");
+      title.textContent = "启动器未能载入";
+      title.style.cssText = "display:block;color:#f2eee8;font-size:17px;line-height:1.3";
+      heading.appendChild(status); heading.appendChild(title);
+      var text = document.createElement("div");
+      text.id = "eaglerBootEmergencyText";
+      text.textContent = diagnosis();
+      text.style.cssText = "color:#bdb8b0";
+      var hint = document.createElement("div");
+      hint.textContent = "如果重新加载后仍然失败，请复制诊断信息并反馈。";
+      hint.style.cssText = "margin-top:5px;color:#85827c;font-size:12px";
+      var details = document.createElement("details");
+      details.style.cssText = "margin-top:15px";
+      var summary = document.createElement("summary");
+      summary.textContent = "查看诊断信息";
+      summary.style.cssText = "color:#a6a29b;cursor:pointer;font-size:12px;user-select:none";
+      var code = document.createElement("pre");
+      code.id = "eaglerBootEmergencyCode";
+      code.textContent = diagnosticText();
+      code.style.cssText = "margin:10px 0 0;padding:11px;overflow:auto;border-radius:10px;background:#10110f;color:#aaa69f;font:10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word";
+      details.appendChild(summary); details.appendChild(code);
+      var actions = document.createElement("div");
+      actions.style.cssText = "display:flex;gap:9px;flex-wrap:wrap;margin-top:18px";
+      function button(label, action, primary) {
+        var item = document.createElement("button");
+        item.type = "button";
+        item.textContent = label;
+        item.style.cssText = "min-height:38px;padding:7px 14px;border:0;border-radius:11px;background:" + (primary ? "#ef6a58" : "#292b27") + ";color:" + (primary ? "#17100e" : "#e8e4dd") + ";font:700 12px/1 system-ui,-apple-system,sans-serif;cursor:pointer";
+        item.addEventListener("click", action);
+        return item;
+      }
+      actions.appendChild(button("重新加载", function () { location.reload(); }, true));
+      actions.appendChild(button("复制诊断信息", function (event) {
+        var value = diagnosticText();
+        var target = event.currentTarget;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(function () { target.textContent = "已复制"; }, function () {});
+          return;
+        }
+        var area = document.createElement("textarea");
+        area.value = value; area.style.position = "fixed"; area.style.opacity = "0";
+        document.body.appendChild(area); area.select();
+        try { document.execCommand("copy"); target.textContent = "已复制"; } catch (_) {}
+        area.remove();
+      }, false));
+      card.appendChild(heading); card.appendChild(text); card.appendChild(hint); card.appendChild(details); card.appendChild(actions);
+      panel.appendChild(card);
+      (document.body || document.documentElement).appendChild(panel);
+    }
+    boot.mark = function (stage) {
+      if (boot.done) return;
+      boot.stage = String(stage || boot.stage);
+    };
+    boot.fail = function (kind, detail, resource) {
+      if (boot.done) return;
+      boot.kind = String(kind || "javascript");
+      boot.detail = String(detail || "").slice(0, 600);
+      boot.resource = compactResource(resource);
+      dismissPreload();
+      show();
+    };
+    boot.ready = function () {
+      boot.done = true;
+      if (watchdog) clearTimeout(watchdog);
+      Promise.resolve().then(waitForCriticalVisuals).then(function () {
+        requestAnimationFrame(function () { requestAnimationFrame(dismissPreload); });
+      }, dismissPreload);
+      var panel = document.getElementById("eaglerBootEmergency");
+      if (panel) panel.remove();
+    };
+    window.__eaglerBoot = boot;
+    window.addEventListener("error", function (event) {
+      if (boot.done) return;
+      var target = event.target;
+      if (target && target !== window && target.tagName === "SCRIPT") {
+        boot.fail("script-load", "SCRIPT load error", target.src || "");
+        return;
+      }
+      if (target && target !== window) return;
+      boot.fail("javascript", event.message || "JavaScript error", event.filename || "");
+    }, true);
+    window.addEventListener("unhandledrejection", function (event) {
+      if (boot.done) return;
+      var reason = event.reason;
+      boot.fail("javascript", reason && (reason.stack || reason.message) || String(reason || "Unhandled promise rejection"), "");
+    });
+    watchdog = setTimeout(function () {
+      if (!boot.done) boot.fail("watchdog", "12 秒内启动器没有完成初始化", "");
+    }, 12000);
+  }());
+  
+}}());</script><style>
+    #eaglerPreload {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      display: grid;
+      place-items: center;
+      background: #0d0d0c;
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 220ms ease-out;
+    }
+    #eaglerPreload.is-done { opacity: 0; pointer-events: none; }
+    .eagler-preload-card {
+      width: min(190px, calc(100vw - 48px));
+      height: 132px;
+      box-sizing: border-box;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 26px;
+      background: rgba(25, 26, 23, .96);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .56), inset 0 1px rgba(255, 255, 255, .035);
+      animation: eagler-preload-card-in 420ms cubic-bezier(.22, .8, .24, 1) both;
+    }
+    .eagler-preload-spinner {
+      width: 28px;
+      height: 28px;
+      box-sizing: border-box;
+      border: 2px solid rgba(244, 239, 235, .16);
+      border-top-color: rgba(239, 106, 88, .92);
+      border-radius: 50%;
+      animation: eagler-preload-spin 620ms linear infinite;
+    }
+    @keyframes eagler-preload-card-in { from { opacity: 0; transform: translateY(12px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes eagler-preload-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      #eaglerPreload { transition-duration: 60ms; }
+      .eagler-preload-spinner { animation-duration: 1100ms; }
+      .eagler-preload-card { animation: none; }
+    }
+  
+
+    html{background:#111210}
+    #lobbyPreload{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#111210;color:#f4eee8;font:15px/1.6 system-ui,sans-serif;transition:opacity .18s ease-out}
+    #lobbyPreload.is-done{opacity:0;pointer-events:none}
+    .lobby-preload-card{display:grid;justify-items:center;gap:18px;padding:32px;border-radius:26px;background:#20211e}
+    .lobby-preload-spinner{width:28px;height:28px;box-sizing:border-box;border:2px solid #fce5ec30;border-top-color:#fce5ec;border-radius:50%;animation:lobby-preload-spin .7s linear infinite}
+    .lobby-preload-failure{display:none;text-align:center}.lobby-preload-failure p{margin:0 0 16px}.lobby-preload-failure a{color:#fce5ec;margin:0 12px}
+    html[data-lobby-boot] .lobby-main{visibility:hidden}
+    html[data-lobby-boot="failed"] .lobby-preload-spinner{display:none}
+    html[data-lobby-boot="failed"] .lobby-preload-failure{display:block}
+    @keyframes lobby-preload-spin{to{transform:rotate(360deg)}}
+    @media(prefers-reduced-motion:reduce){#lobbyPreload{transition:none}.lobby-preload-spinner{animation:none}}
+    .less-motion #lobbyPreload{transition:none}.less-motion .lobby-preload-spinner{animation:none}
+  
+
+    #lobbyPreload {
+      position: fixed;
+      inset: 0;
+      z-index: 2147483000;
+      display: grid;
+      place-items: center;
+      background: #0d0d0c;
+      opacity: 1;
+      pointer-events: auto;
+      transition: opacity 220ms ease-out;
+    }
+    #lobbyPreload.is-done { opacity: 0; pointer-events: none; }
+    .lobby-preload-card {
+      width: min(190px, calc(100vw - 48px));
+      height: 132px;
+      box-sizing: border-box;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 26px;
+      background: rgba(25, 26, 23, .96);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .56), inset 0 1px rgba(255, 255, 255, .035);
+      animation: lobby-preload-card-in 420ms cubic-bezier(.22, .8, .24, 1) both;
+    }
+    .lobby-preload-spinner {
+      width: 28px;
+      height: 28px;
+      box-sizing: border-box;
+      border: 2px solid rgba(244, 239, 235, .16);
+      border-top-color: rgba(239, 106, 88, .92);
+      border-radius: 50%;
+      animation: lobby-preload-spin 620ms linear infinite;
+    }
+    @keyframes lobby-preload-card-in { from { opacity: 0; transform: translateY(12px) scale(.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes lobby-preload-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      #lobbyPreload { transition-duration: 60ms; }
+      .lobby-preload-spinner { animation-duration: 1100ms; }
+      .lobby-preload-card { animation: none; }
+    }
+  
+.lobby-preload-card{padding:0;gap:normal}html[data-lobby-boot="failed"] .lobby-preload-card{width:min(420px,calc(100vw - 48px));height:auto;min-height:132px;padding:24px;gap:18px;animation:none}
+html[data-original-entry="lobby"] #eaglerPreload,html:not([data-original-entry="lobby"]) #lobbyPreload{display:none}</style><style id="launcherNavigationTransition">@view-transition{navigation:auto}</style><link rel="stylesheet" href="/assets/root-C0FsvmBL.css"/>  <!-- site-metadata:start -->
+  <link rel="canonical" href="https://aflyingkelp.github.io/en.html">
+  <link rel="alternate" hreflang="zh-CN" href="https://aflyingkelp.github.io/">
+  <link rel="alternate" hreflang="en" href="https://aflyingkelp.github.io/en.html">
+  <link rel="alternate" hreflang="x-default" href="https://aflyingkelp.github.io/">
+  <!-- site-metadata:end -->
+</head><body><div style="display:contents" data-surface-preload-host=""><div id="eaglerPreload" role="status" aria-label="正在加载 EAGLER TOUHOU" data-i18n-aria-label="preload.aria">
+    <div class="eagler-preload-card">
+      <i class="eagler-preload-spinner" aria-hidden="true"></i>
+    </div>
+  </div><div id="lobbyPreload" role="status" aria-label="正在加载联机大厅" data-i18n-aria-label="lobby.loading"><div class="lobby-preload-card"><i class="lobby-preload-spinner" aria-hidden="true"></i><div class="lobby-preload-failure"><p data-i18n="lobby.loadFailed">大厅暂时未能加载。</p><a href="" data-i18n="lobby.reload">重新加载</a><a href="./" data-i18n="lobby.back">返回启动器</a></div></div></div><template data-surface-preload="library"><div id="eaglerPreload" role="status" aria-label="正在加载 EAGLER TOUHOU" data-i18n-aria-label="preload.aria">
+    <div class="eagler-preload-card">
+      <i class="eagler-preload-spinner" aria-hidden="true"></i>
+    </div>
+  </div></template><template data-surface-preload="lobby"><div id="lobbyPreload" role="status" aria-label="正在加载联机大厅" data-i18n-aria-label="lobby.loading"><div class="lobby-preload-card"><i class="lobby-preload-spinner" aria-hidden="true"></i><div class="lobby-preload-failure"><p data-i18n="lobby.loadFailed">大厅暂时未能加载。</p><a href="" data-i18n="lobby.reload">重新加载</a><a href="./" data-i18n="lobby.back">返回启动器</a></div></div></div></template></div><div class="library-background" aria-hidden="true"></div><div class="sheet"><header id="mastheadMenu" class="masthead site-header" data-group="settings" data-open="false" data-compact="false"><div class="site-header-row"><a class="brand" id="launcherLink" aria-label="EAGLER TOUHOU" href="en.html"><span class="brand-eagler"><span class="brand-title">EAGLER</span></span><span class="brand-separator" aria-hidden="true"><span class="brand-yinyang">☯</span></span><span class="brand-title">TOUHOU</span></a><nav class="masthead-links site-primary-links" aria-label="Site information"><a class="masthead-link site-nav-page" data-site-link="single" aria-current="page" href="en.html">Games</a><a class="masthead-link site-nav-page" data-site-link="lobby" href="lobby.html">Multiplayer</a><button type="button" class="masthead-link site-nav-group" data-site-trigger="help" aria-expanded="false" aria-controls="mastheadMenuPanel">Help<img class="site-caret" src="assets/room-caret-right.svg" alt="" width="12" height="12"/></button><button type="button" class="masthead-link site-nav-group" data-site-trigger="settings" aria-expanded="false" aria-controls="mastheadMenuPanel">Settings<img class="site-caret" src="assets/room-caret-right.svg" alt="" width="12" height="12"/></button><button class="masthead-link site-donation" id="donationOpenTop" type="button">Donate</button><a class="masthead-link site-mobile-faq" href="faq.html">FAQ</a><button class="masthead-link site-mobile-toggle" id="mastheadMenuToggle" type="button" aria-label="More" aria-expanded="false" aria-controls="mastheadMenuPanel"><img src="assets/site-menu.svg" alt="" width="22" height="22"/></button></nav></div><div class="site-navigation-tray" id="mastheadMenuPanel" inert="" aria-hidden="true"><div class="site-navigation-inner"><nav class="site-mobile-page-links" aria-label="Play"><a class="masthead-link site-page-entry" data-site-link="single" href="en.html">Games</a><a class="masthead-link site-page-entry" data-site-link="lobby" href="lobby.html">Multiplayer</a></nav><section class="site-navigation-panel" data-site-panel="help" aria-label="Help"><button type="button" class="site-panel-heading masthead-link" aria-expanded="true">Help<img class="site-caret" src="assets/room-caret-right.svg" alt="" width="12" height="12"/></button><div class="site-panel-content"><a class="masthead-menu-item" href="about.html">About</a><a class="masthead-menu-item" href="faq.html">FAQ</a><a class="masthead-menu-item" href="uptime/">Service status</a><button class="masthead-menu-item" id="firstUseNoticeOpen" type="button">Before You Start</button><a class="masthead-menu-item" id="originMigrationOpen" href="migrate.html" hidden="">Save recovery</a><a class="masthead-menu-item" href="https://github.com/Ritosa2333/eagler-touhou" target="_blank" rel="noopener noreferrer">GitHub</a></div></section><section class="site-navigation-panel" data-site-panel="settings" aria-label="Settings"><button type="button" class="site-panel-heading masthead-link" aria-expanded="true">Settings<img class="site-caret" src="assets/room-caret-right.svg" alt="" width="12" height="12"/></button><div class="site-panel-content"><div class="site-language-row"><span>Language</span><div class="ui-language-control"><select class="option-select ui-language-select" id="uiLanguageSelect" aria-label="Interface language" data-trigger-i18n="ui.language.menu"><option value="zh-CN">Simplified Chinese</option><option value="en" selected="">English</option></select></div></div><button class="masthead-menu-item site-setting" id="siteNoticeToggle" type="button" role="switch" aria-checked="true"><span>Notice</span><i class="site-setting-switch" aria-hidden="true"></i></button><button class="masthead-menu-item site-setting motion-menu-toggle" id="lessMotionToggle" type="button" role="switch" aria-checked="false"><span>Less motion</span><i class="site-setting-switch" aria-hidden="true"></i></button><button class="masthead-menu-item site-setting" id="runtimeDiagnosticsToggle" type="button" role="switch" aria-checked="false"><span>Show debug information</span><i class="site-setting-switch" aria-hidden="true"></i></button></div></section></div></div></header><main class="main library-layout" id="main"><h1 class="visually-hidden">东方Project 原作 STG ~ EAGLER TOUHOU</h1><div class="game-library"><section class="game-shelf" data-launcher-document="" data-shelf="singleplayer" aria-labelledby="singleplayerHeading"><header class="shelf-heading"><h2 id="singleplayerHeading">Single player</h2><span class="shelf-caption">Choose a game. Begin your journey.</span></header><div class="game-rail" id="singleplayerRail" role="group" aria-labelledby="singleplayerHeading"><a class="game game-th06" data-game="th06" href="?game=th06" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" width="640" height="480" fetchPriority="high" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">06</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>紅魔郷</span></span></h2><small>the Embodiment of Scarlet Devil</small></div><span class="rail-title"><strong>東方紅魔郷</strong> ~ <!-- -->the Embodiment of Scarlet Devil</span></a><a class="game game-th07" data-game="th07" href="?game=th07" style="--art-position:58%;--card-art-brightness:0.42;--card-art-saturation:0.62;--card-glow-brightness:0.8;--card-glow-saturation:0.88" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">07</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>妖々夢</span></span></h2><small>Perfect Cherry Blossom</small></div><span class="rail-title"><strong>東方妖々夢</strong> ~ <!-- -->Perfect Cherry Blossom</span></a><a class="game game-th075" data-game="th075" href="?game=th075" hidden="" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">07.5</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>萃夢想</span></span></h2><small>Immaterial and Missing Power</small></div><span class="rail-title"><strong>東方萃夢想</strong> ~ <!-- -->Immaterial and Missing Power</span></a><a class="game game-th08" data-game="th08" href="?game=th08" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">08</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>永夜抄</span></span></h2><small>Imperishable Night</small></div><span class="rail-title"><strong>東方永夜抄</strong> ~ <!-- -->Imperishable Night</span></a><a class="game game-th09" data-game="th09" href="?game=th09" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">09</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>花映塚</span></span></h2><small>Phantasmagoria of Flower View</small></div><span class="rail-title"><strong>東方花映塚</strong> ~ <!-- -->Phantasmagoria of Flower View</span></a><a class="game game-th10" data-game="th10" href="?game=th10" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">10</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>風神録</span></span></h2><small>Mountain of Faith</small></div><span class="rail-title"><strong>東方風神録</strong> ~ <!-- -->Mountain of Faith</span></a><a class="game game-th11" data-game="th11" href="?game=th11" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">11</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>地霊殿</span></span></h2><small>Subterranean Animism</small></div><span class="rail-title"><strong>東方地霊殿</strong> ~ <!-- -->Subterranean Animism</span></a><a class="game game-th12" data-game="th12" href="?game=th12" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">12</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>星蓮船</span></span></h2><small>Undefined Fantastic Object</small></div><span class="rail-title"><strong>東方星蓮船</strong> ~ <!-- -->Undefined Fantastic Object</span></a><a class="game game-th15" data-game="th15" href="?game=th15" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">15</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>紺珠伝</span></span></h2><small>Legacy of Lunatic Kingdom</small></div><span class="rail-title"><strong>東方紺珠伝</strong> ~ <!-- -->Legacy of Lunatic Kingdom</span></a><a class="game game-th20" data-game="th20" href="?game=th20" hidden="" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><div class="no"><span class="no-label">20</span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>錦上京</span></span></h2><small>Fossilized Wonders</small></div><span class="rail-title"><strong>東方錦上京</strong> ~ <!-- -->Fossilized Wonders</span></a></div><div class="shelf-minimap"><div class="minimap-dock"><button class="minimap-toggle" type="button" data-minimap-preview="th06" aria-label="東方紅魔郷" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">06</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th07" aria-label="東方妖々夢" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">07</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th075" aria-label="東方萃夢想" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel" hidden=""><span class="minimap-index" aria-hidden="true">07.5</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th08" aria-label="東方永夜抄" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">08</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th09" aria-label="東方花映塚" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">09</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th10" aria-label="東方風神録" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">10</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th11" aria-label="東方地霊殿" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">11</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th12" aria-label="東方星蓮船" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">12</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th15" aria-label="東方紺珠伝" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">15</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th20" aria-label="東方錦上京" aria-controls="singleplayerRail" aria-describedby="singleplayerMinimapLabel" hidden=""><span class="minimap-index" aria-hidden="true">20</span></button></div><span class="sr-only" id="singleplayerMinimapLabel">Tap to select, tap the selected title for options; hold and slide to browse</span></div></section><section class="game-shelf" data-launcher-document="" data-shelf="multiplayer" aria-labelledby="multiplayerHeading"><header class="shelf-heading"><h2 id="multiplayerHeading">Multiplayer</h2><span class="shelf-caption">Explore Gensokyo together.</span><a class="shelf-lobby-link" href="lobby.html"><img src="assets/room-users.svg" alt="" width="18" height="18"/><span>Multiplayer lobby</span></a></header><div class="game-rail" id="multiplayerRail" role="group" aria-labelledby="multiplayerHeading"><a class="game game-th06 game-th06mp game-multiplayer" data-game="th06" data-product="th06mp" href="?game=th06mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">06<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>紅魔郷</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>the Embodiment of Scarlet Devil</small></div><span class="rail-title"><strong>東方紅魔郷</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th07 game-th07mp game-multiplayer" data-game="th07" data-product="th07mp" href="?game=th07mp" style="--art-position:58%;--card-art-brightness:0.42;--card-art-saturation:0.62;--card-glow-brightness:0.8;--card-glow-saturation:0.88" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">07<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>妖々夢</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Perfect Cherry Blossom</small></div><span class="rail-title"><strong>東方妖々夢</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th075 game-th075mp game-multiplayer" data-game="th075" data-product="th075mp" href="?game=th075mp" hidden="" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">07.5<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>萃夢想</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Immaterial and Missing Power</small></div><span class="rail-title"><strong>東方萃夢想</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th08 game-th08mp game-multiplayer" data-game="th08" data-product="th08mp" href="?game=th08mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">08<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>永夜抄</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Imperishable Night</small></div><span class="rail-title"><strong>東方永夜抄</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th09 game-th09mp game-multiplayer" data-game="th09" data-product="th09mp" href="?game=th09mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">09<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>花映塚</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Phantasmagoria of Flower View</small></div><span class="rail-title"><strong>東方花映塚</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th10 game-th10mp game-multiplayer" data-game="th10" data-product="th10mp" href="?game=th10mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">10<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>風神録</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Mountain of Faith</small></div><span class="rail-title"><strong>東方風神録</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th11 game-th11mp game-multiplayer" data-game="th11" data-product="th11mp" href="?game=th11mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">11<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>地霊殿</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Subterranean Animism</small></div><span class="rail-title"><strong>東方地霊殿</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th12 game-th12mp game-multiplayer" data-game="th12" data-product="th12mp" href="?game=th12mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">12<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>星蓮船</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Undefined Fantastic Object</small></div><span class="rail-title"><strong>東方星蓮船</strong> ~ <!-- -->Multiplayer</span></a><a class="game game-th15 game-th15mp game-multiplayer" data-game="th15" data-product="th15mp" href="?game=th15mp" draggable="false"><span class="card-art" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/><span class="card-art-shade"></span></span><span class="card-glow" aria-hidden="true"><img class="card-art-image" src="assets/mountain-of-faith.svg" alt="" draggable="false"/></span><span class="mp-card-mark" aria-hidden="true">MULTIPLAYER</span><div class="no"><span class="no-label">15<span class="no-mp">MP</span></span></div><div class="game-copy"><h2><span class="game-title"><span>東方</span><wbr/><span>紺珠伝</span></span> <span class="mp-game-title-badge" aria-hidden="true">MULTIPLAYER</span></h2><small>Legacy of Lunatic Kingdom</small></div><span class="rail-title"><strong>東方紺珠伝</strong> ~ <!-- -->Multiplayer</span></a></div><div class="shelf-minimap"><div class="minimap-dock"><button class="minimap-toggle" type="button" data-minimap-preview="th06mp" aria-label="東方紅魔郷" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">06</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th07mp" aria-label="東方妖々夢" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">07</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th075mp" aria-label="東方萃夢想" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel" hidden=""><span class="minimap-index" aria-hidden="true">07.5</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th08mp" aria-label="東方永夜抄" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">08</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th09mp" aria-label="東方花映塚" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">09</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th10mp" aria-label="東方風神録" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">10</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th11mp" aria-label="東方地霊殿" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">11</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th12mp" aria-label="東方星蓮船" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">12</span></button><button class="minimap-toggle" type="button" data-minimap-preview="th15mp" aria-label="東方紺珠伝" aria-controls="multiplayerRail" aria-describedby="multiplayerMinimapLabel"><span class="minimap-index" aria-hidden="true">15</span></button></div><span class="sr-only" id="multiplayerMinimapLabel">Tap to select, tap the selected title for options; hold and slide to browse</span></div></section></div><button class="library-backdrop" id="libraryBackdrop" type="button" tabindex="-1" aria-hidden="true" aria-label="Back to library"></button></main></div><footer class="site-footer"><div class="site-footer-divider" aria-hidden="true"></div><div class="site-footer-inner"><p>使用 GPL-3.0 license。<a href="https://github.com/YomotsuHisami/eagler-touhou" target="_blank" rel="noopener noreferrer">Github 仓库</a><i aria-hidden="true">/</i><a href="https://qm.qq.com/q/eeUrxIltug" target="_blank" rel="noopener noreferrer">QQ 群</a><i aria-hidden="true">/</i><button class="site-footer-link" id="donationOpen" type="button">捐赠以支持服务器运行</button></p><p class="site-footer-record"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">赣ICP备2025074288号-1</a></p></div></footer><noscript><p class="noscript-message">此启动器需要 JavaScript。你仍可查看<a href="faq.html">常见问题</a>和<a href="about.html">项目说明</a>。</p></noscript><script>((storageKey, restoreKey) => {
+		if (!window.history.state || !window.history.state.key) {
+			let key = Math.random().toString(32).slice(2);
+			window.history.replaceState({ key }, "");
+		}
+		try {
+			let storedY = JSON.parse(sessionStorage.getItem(storageKey) || "{}")[restoreKey || window.history.state.key];
+			if (typeof storedY === "number") window.scrollTo(0, storedY);
+		} catch (error) {
+			console.error(error);
+			sessionStorage.removeItem(storageKey);
+		}
+	})("react-router-scroll-positions", null)</script><script>window.__eaglerBoot && window.__eaglerBoot.mark("app-module-request");</script><script data-eagler-entry="true">window.__reactRouterContext = {"basename":"/","future":{"unstable_enableNodeReadableStream":false,"unstable_optimizeDeps":false},"routeDiscovery":{"mode":"initial"},"ssr":false,"isSpaMode":false};window.__reactRouterContext.stream = new ReadableStream({start(controller){window.__reactRouterContext.streamController = controller;}}).pipeThrough(new TextEncoderStream());</script><script data-eagler-entry="true" type="module" async="">import "/assets/manifest-1c6e11d6.js";
+import * as route0 from "/assets/root-BjlZziWC.js";
+import * as route1 from "/assets/surface-BuvVOzaT.js";
+  
+  window.__reactRouterRouteModules = {"root":route0,"library-en":route1};
+
+import("/assets/entry.client-DbcLqyPP.js");</script><script>(function(){var module=document.querySelector('script[type="module"][data-eagler-entry]');if(module)module.id='lobbyModule';if(document.documentElement.getAttribute('data-original-entry')==='lobby'){
+    (function () {
+      function fail() {
+        if (document.documentElement.dataset.lobbyBoot === 'loading') document.documentElement.dataset.lobbyBoot = 'failed';
+      }
+      document.getElementById('lobbyModule').addEventListener('error', fail);
+      setTimeout(fail, 25000);
+    })();
+  
+}}());</script><!--$--><script>window.__reactRouterContext.streamController.enqueue("[{\"_1\":2,\"_3\":-5,\"_4\":-5},\"loaderData\",{},\"actionData\",\"errors\"]\n");</script><!--$--><script>window.__reactRouterContext.streamController.close();</script><!--/$--><!--/$--></body></html>

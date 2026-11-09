@@ -1,0 +1,126 @@
+{
+  "schema": "eagler-touhou/site-manifest/1",
+  "protocol": "eagler-touhou/1",
+  "profile": "web-validation-self-host-import",
+  "shared": {
+    "resourceMode": "import",
+    "testBuild": false,
+    "runtimeManifest": "runtime-manifest.json"
+  },
+  "games": {
+    "th10": {
+      "number": "10",
+      "title": "東方風神録",
+      "subtitle": "Mountain of Faith",
+      "gameData": {
+        "path": "th10.data",
+        "bytes": 27696219,
+        "sha256": "1fb1d0ffe34115f563f5feb43755c0feee2315b0ac2b32e2f9e84c81e9433bea",
+        "version": "sha256-1fb1d0ffe34115f563f5feb43755c0feee2315b0ac2b32e2f9e84c81e9433bea",
+        "layout": "sha256-6b25b2ce0bf32d56880d32b4a0d26541eae670ee31e4de7126fcfd4d95f446a7"
+      },
+      "features": {
+        "thprac": true,
+        "focusHitbox": false
+      },
+      "music": {
+        "midi": {
+          "files": [],
+          "supported": false
+        },
+        "ogg": {
+          "mount": "/bgm-ogg",
+          "files": [
+            "th10_02.ogg",
+            "th10_00.ogg",
+            "th10_01.ogg",
+            "th10_03.ogg",
+            "th10_04.ogg",
+            "th10_05.ogg",
+            "th10_06.ogg",
+            "th10_07.ogg",
+            "th10_08.ogg",
+            "th10_09.ogg",
+            "th10_10.ogg",
+            "th10_11.ogg",
+            "th10_12.ogg",
+            "th10_15.ogg",
+            "th10_16.ogg",
+            "th10_13.ogg",
+            "th10_14.ogg",
+            "th10_17.ogg"
+          ],
+          "base": "games/th10/music/ogg/",
+          "sizes": [
+            1780700,
+            2978461,
+            942952,
+            2638071,
+            2199768,
+            3951731,
+            3060529,
+            4366832,
+            1767266,
+            3939646,
+            3801781,
+            1386095,
+            3299321,
+            4280752,
+            3666717,
+            1787069,
+            1896030,
+            698177
+          ],
+          "sha256": [
+            "ace44e3ff1a5607fcde9dc531b6df6e197072509a0cf8eddc0ef59418dc42101",
+            "f4357643b8fd6deed064a2a75a691b1d005f49aeb16480e57352e68facc87505",
+            "6b563604ce76632a4a1eec949a6e01048585abd439e9e80fff316215e5bdbc2d",
+            "097634d6837311afc8fe70cfcbbacd877e438b78893b0b1bd82ea5d4890873c5",
+            "d900d3fcf20d4ec2273b0f37fb972c4cb063346b4840bc4d694fef3145943973",
+            "ff28ffd32a297bb6dd8c313136e61e97574385497b765e63051e90510315eccf",
+            "7c44317af3ca4a85a37639d3455b924fd579cd3dff930e626cccc9f8b86421ed",
+            "3aec7e27b2456385d05684ed804f85b4bfd9b65aacafa9405b444f0e85a1dfe3",
+            "56a9eb26fb42a3adbdb2784e753fd54404c518662d6ea0bbe337ee1563f33080",
+            "7c99d57b71a4110cae3ccd1773394b7a2ad1725c960fb653cee5dcf193d0874b",
+            "9842ee36ca1ce1fa77a49a6e1edeec83d9be76891897d4045cf0486151b135ff",
+            "1d6ca82a8191df9a756e5ef01f40d53e1332a43e620cae754500f4b4500df3ce",
+            "19dad1cf285a1f59e19e7fdebe9e0ab732d00b6971dc27a65901da25bd95d690",
+            "108db64c1d46913798c1f1a9e30e2d3b7a11d87098290b9289bf3537679f7890",
+            "3e67cc79b1a3964ff52c03663662d46c661f51b6a035e491d9c70afebac48ead",
+            "33609157414cd561558ffcece837b95cb46c0b087a0703178291e7cbdfcd68d5",
+            "21828a6c682e9046ba430476d1362b82905883ff19a9be49f7cc095334cbc682",
+            "b6095b94663788ddaf87d4f04e66def65e951764cfdaf4ca4f9b51f6171aa200"
+          ],
+          "version": "sha256-3f8b11021eb31577a6327b3aaba039cb952f6a6e3fe591d81a2b92b5997e4b56"
+        }
+      },
+      "runtime": "runtime/th10/cf05230c84601e98f15817ed866e0a51e96de4d7c47a338dfa43b809a8cb7c11/th10.html?hosted=1",
+      "languages": [],
+      "languageOptions": [
+        {
+          "id": "ja",
+          "title": "日本語",
+          "pack": null
+        }
+      ],
+      "offlineCompatibility": {
+        "schema": "eagler-touhou/offline-game-pack/1",
+        "runtimeCompatibility": {
+          "protocol": "eagler-touhou/1",
+          "dataLayout": "sha256-6b25b2ce0bf32d56880d32b4a0d26541eae670ee31e4de7126fcfd4d95f446a7",
+          "versionSource": "offline-pack"
+        },
+        "requiredShared": [
+          "/msgothic.ttc",
+          "/unifont.otf"
+        ],
+        "languages": {
+          "source": "offline-pack",
+          "baseline": [
+            "ja"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+EAGLER TOUHOU browser launcher and Touhou 10 runtime by the upstream EAGLER TOUHOU contributors. Launcher: GPL-3.0-or-later. See LICENSE, THIRD_PARTY.md, ASSETS.md and SOURCE.md. Original Touhou game data is supplied by each player and remains in browser-local storage.

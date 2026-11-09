@@ -1,0 +1,14 @@
+{
+  "format": "aflyingkelp-th10-import/1",
+  "siteUrl": "https://aflyingkelp.github.io/",
+  "resourceMode": "import",
+  "games": [
+    "th10"
+  ],
+  "appShell": {
+    "buildId": "fb3845b05a2abb37efb3",
+    "files": 140
+  },
+  "upstream": "https://github.com/Ritosa2333/eagler-touhou",
+  "runtimeVersion": "3.5.1-sdl3"
+}

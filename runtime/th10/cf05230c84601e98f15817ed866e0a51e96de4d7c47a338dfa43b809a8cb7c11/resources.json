@@ -1,0 +1,16 @@
+{
+  "schema": "eagler-sdl-resources/1",
+  "game": "th10",
+  "resources": [
+    {
+      "path": "/fonts/blend.bin",
+      "url": "./fonts/blend.bin",
+      "bytes": 131072
+    },
+    {
+      "path": "/fonts/codepages.bin",
+      "url": "./fonts/codepages.bin",
+      "bytes": 262144
+    }
+  ]
+}

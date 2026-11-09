@@ -1,0 +1,201 @@
+{
+  "schema": "eagler-touhou/runtime-manifest/1",
+  "protocol": "eagler-touhou/1",
+  "groups": [
+    {
+      "root": "runtime/th10/",
+      "current": {
+        "generation": "cf05230c84601e98f15817ed866e0a51e96de4d7c47a338dfa43b809a8cb7c11",
+        "entry": "th10.html",
+        "files": [
+          {
+            "path": "directory-keyboard.mjs",
+            "bytes": 11783,
+            "sha256": "e586a6c00308f0359551f229b302a78501230f7dc2f040ecca7a4a3d01536935"
+          },
+          {
+            "path": "eagler-host.mjs",
+            "bytes": 9135,
+            "sha256": "af6f65d76bb108611a04831487c05f1cd4b93d1715f3e5e02398cab438e1482c"
+          },
+          {
+            "path": "fonts/blend.bin",
+            "bytes": 131072,
+            "sha256": "c24db3025b9c40b898464f3fcbc0bd4c2da6d98f7cf9d869802f5269ab87ae94"
+          },
+          {
+            "path": "fonts/codepages.bin",
+            "bytes": 262144,
+            "sha256": "37bac4b17c210cc62858f8d88b6b94a7adc217d23d3bec9d8e54ced0ccba45c5"
+          },
+          {
+            "path": "manifest.json",
+            "bytes": 991,
+            "sha256": "f6f1b705080f42b9d7f72af95339794ad4d4ea7fe1ec565ff1c5ce469b602e14"
+          },
+          {
+            "path": "motion-replay.mjs",
+            "bytes": 2515,
+            "sha256": "170c4368cc3b2a09b5b57b8e1431648d00f456ce675ae05f7539a67da94456ad"
+          },
+          {
+            "path": "practice-config.mjs",
+            "bytes": 1350,
+            "sha256": "df0178ec8e72c30dde711a59c8b82ffd0e296f4a15e2a291471fe75dfffc52ea"
+          },
+          {
+            "path": "practice-sections.mjs",
+            "bytes": 51321,
+            "sha256": "c4283bbdcf7b72f80dc91d05e69b57f5dfb647994656e89f23876a5d57350231"
+          },
+          {
+            "path": "practice.mjs",
+            "bytes": 2102,
+            "sha256": "5101aae9aadb45945a60a78657387a64299ff9cadc8827f7365dadbbcffa3382"
+          },
+          {
+            "path": "resources.json",
+            "bytes": 294,
+            "sha256": "9116187fcf4ddaaa2142c335dfaac154fc6bafca20ef2ecae08b660cf79b0182"
+          },
+          {
+            "path": "shell.mjs",
+            "bytes": 27935,
+            "sha256": "da87990061dc86416f3528e8b83f49cd300821bc40a76dccba4335fa59c01f11"
+          },
+          {
+            "path": "startup-branding.mjs",
+            "bytes": 38161,
+            "sha256": "fe7376040e296235be120a156b540fc681ad66f47f0dadf97a49822303d23ee9"
+          },
+          {
+            "path": "th10-sdl.mjs",
+            "bytes": 250556,
+            "sha256": "a2a3f00de5bcb367376c69b0956d3b2aa6a834ea86eea267a6a9255a5169fd1e"
+          },
+          {
+            "path": "th10-sdl.wasm",
+            "bytes": 3357249,
+            "sha256": "8ef204a09b84fed21f4433304b6596b483c39977c1270d483e121273129f4a3d"
+          },
+          {
+            "path": "th10.html",
+            "bytes": 811,
+            "sha256": "eee0a97d488e5e3b82e78d8370472caf1cf262c572e1b4440560a52a66fa3e88"
+          }
+        ]
+      },
+      "previous": []
+    },
+    {
+      "root": "runtime/th10/multiplayer/",
+      "current": {
+        "generation": "afdae1f963e36188f47937894c1bc225d67520149b045565acdd4dd9b1843820",
+        "entry": "th10.html",
+        "files": [
+          {
+            "path": "adonis-calibration.mjs",
+            "bytes": 4062,
+            "sha256": "8577d83d4f3ee083e1bb4ff0b0c7702e86a38aff3e5726ee57a3bc324cd006fa"
+          },
+          {
+            "path": "directory-keyboard.mjs",
+            "bytes": 11783,
+            "sha256": "e586a6c00308f0359551f229b302a78501230f7dc2f040ecca7a4a3d01536935"
+          },
+          {
+            "path": "eagler-host.mjs",
+            "bytes": 9135,
+            "sha256": "af6f65d76bb108611a04831487c05f1cd4b93d1715f3e5e02398cab438e1482c"
+          },
+          {
+            "path": "fonts/blend.bin",
+            "bytes": 131072,
+            "sha256": "cd7099994c1d25a9526fba4422c518b38fbb4e7ac9940288adc0c0ddef2106eb"
+          },
+          {
+            "path": "fonts/codepages.bin",
+            "bytes": 262144,
+            "sha256": "a610d91bf93d6ac2daa40694f1ceaed748cf89d1e3fa890022785e0a56c63c58"
+          },
+          {
+            "path": "manifest.json",
+            "bytes": 1083,
+            "sha256": "a89f238fbc513c885b050099b3b06d4c91cef602148335d3ea44a50018bdfb10"
+          },
+          {
+            "path": "motion-replay.mjs",
+            "bytes": 2515,
+            "sha256": "170c4368cc3b2a09b5b57b8e1431648d00f456ce675ae05f7539a67da94456ad"
+          },
+          {
+            "path": "practice-config.mjs",
+            "bytes": 1350,
+            "sha256": "df0178ec8e72c30dde711a59c8b82ffd0e296f4a15e2a291471fe75dfffc52ea"
+          },
+          {
+            "path": "practice-loader.mjs",
+            "bytes": 406,
+            "sha256": "7b044d7b5e0527bc467d1d646da7b4eba0cee0087a42611f8dbcbcc8aa5e1876"
+          },
+          {
+            "path": "practice-sections.mjs",
+            "bytes": 51321,
+            "sha256": "c4283bbdcf7b72f80dc91d05e69b57f5dfb647994656e89f23876a5d57350231"
+          },
+          {
+            "path": "practice.mjs",
+            "bytes": 2102,
+            "sha256": "5101aae9aadb45945a60a78657387a64299ff9cadc8827f7365dadbbcffa3382"
+          },
+          {
+            "path": "replay-file-policy.mjs",
+            "bytes": 1645,
+            "sha256": "b000f819904fd6a6ce9be828764d0d02240134d875251a248061cc0fc142c8e3"
+          },
+          {
+            "path": "resources.json",
+            "bytes": 294,
+            "sha256": "9116187fcf4ddaaa2142c335dfaac154fc6bafca20ef2ecae08b660cf79b0182"
+          },
+          {
+            "path": "save-storage.mjs",
+            "bytes": 4548,
+            "sha256": "0b3c0f35b1c43ce91b019885cc2eb68c338695b41e7df579eccde2579177fde2"
+          },
+          {
+            "path": "save-sync.mjs",
+            "bytes": 1178,
+            "sha256": "5c80722aab15d73770d27a322a565fa29228a08b3fa667766da454f56ca1e3c5"
+          },
+          {
+            "path": "shell.mjs",
+            "bytes": 45168,
+            "sha256": "ada666f5e8fa113bfe4d30cc573c78f6e6a805b79ea737c43516042b6ba51987"
+          },
+          {
+            "path": "startup-branding.mjs",
+            "bytes": 38161,
+            "sha256": "fe7376040e296235be120a156b540fc681ad66f47f0dadf97a49822303d23ee9"
+          },
+          {
+            "path": "th10-sdl.mjs",
+            "bytes": 317009,
+            "sha256": "7b50fa5c562e0a77348d97194b1ce8bf3c589bc22080b3e2a950a4d5208b5ed9"
+          },
+          {
+            "path": "th10-sdl.wasm",
+            "bytes": 3317032,
+            "sha256": "154df4bdfd516545fcf044aca84763081b568c8a560b6a5956b36c9b502ea2fc"
+          },
+          {
+            "path": "th10.html",
+            "bytes": 811,
+            "sha256": "eee0a97d488e5e3b82e78d8370472caf1cf262c572e1b4440560a52a66fa3e88"
+          }
+        ]
+      },
+      "previous": []
+    }
+  ]
+}
