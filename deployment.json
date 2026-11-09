@@ -11,8 +11,8 @@
     "th10"
   ],
   "appShell": {
-    "buildId": "90a1f29bb54b038d7021",
-    "files": 142
+    "buildId": "c982b02b5e2ab1b8e05f",
+    "files": 143
   },
   "upstream": "https://github.com/Ritosa2333/eagler-touhou",
   "runtimeVersion": "3.5.1-sdl3"
