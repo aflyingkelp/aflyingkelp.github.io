@@ -1,19 +1,12 @@
 {
-  "format": "aflyingkelp-th10-online-and-import/1",
+  "format": "self-hosted-only/1",
   "siteUrl": "https://aflyingkelp.github.io/",
-  "defaultPlayer": {
-    "kind": "external-embed",
-    "url": "https://touhouonline.com/en.html?game=th10",
-    "entry": "play.html"
-  },
-  "resourceMode": "import",
-  "games": [
+  "externalGameServers": false,
+  "installedRuntimes": [
     "th10"
   ],
+  "installedGameData": [],
   "appShell": {
-    "buildId": "eac09e37cffa71644fe4",
-    "files": 143
-  },
-  "upstream": "https://github.com/Ritosa2333/eagler-touhou",
-  "runtimeVersion": "3.5.1-sdl3"
+    "buildId": "762d6b7244744aa3ed18"
+  }
 }

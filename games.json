@@ -1,132 +1,106 @@
 [
   {
     "id": "th06",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "6",
     "title": "the Embodiment of Scarlet Devil",
     "japanese": "東方紅魔郷",
-    "preview": false,
-    "runtime": "runtime/th06/833d9f731d729d2b93ed93729782bc2897395e8bba9c585a0cbcf3f2e2e79175/th06.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th07",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "7",
     "title": "Perfect Cherry Blossom",
     "japanese": "東方妖々夢",
-    "preview": false,
-    "runtime": "runtime/th07/d59a0e374b22cdf0e75451040a9b8e1404e9385da2badfd2198caf6d8785a79a/th07.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th075",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "7.5",
     "title": "Immaterial and Missing Power",
     "japanese": "東方萃夢想",
-    "preview": true,
-    "runtime": "runtime/th075/8707df10daaaf3c17ae313543a1bedb6268f5c81714ec2c46f7c624f99150126/th075.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th08",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "8",
     "title": "Imperishable Night",
     "japanese": "東方永夜抄",
-    "preview": false,
-    "runtime": "runtime/th08/85129a0ebe5bf54f4ee406a7c16097b9bedc49314e33167c6c725f4c66771b68/th08.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th09",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "9",
     "title": "Phantasmagoria of Flower View",
     "japanese": "東方花映塚",
-    "preview": false,
-    "runtime": "runtime/th09/9a2d71a03f462062d7d09203d42cf39cb177118d9c13553444ed52e96210f887/th09.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th10",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "10",
     "title": "Mountain of Faith",
     "japanese": "東方風神録",
-    "preview": false,
-    "runtime": "runtime/th10/c9db0ece1e484f87b80e1e13d68d9502d6730bf6e53037dd29a9cc137466f668/th10.html?hosted=1"
+    "runtimeInstalled": true,
+    "gameDataInstalled": false
   },
   {
     "id": "th11",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "11",
     "title": "Subterranean Animism",
     "japanese": "東方地霊殿",
-    "preview": false,
-    "runtime": "runtime/th11/0542d821c40e55ef87104f87748c831beda1b0cc8ff9c034c56af057e5fbbd77/th11.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th12",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "12",
     "title": "Undefined Fantastic Object",
     "japanese": "東方星蓮船",
-    "preview": false,
-    "runtime": "runtime/th12/a864bc6d6f47b8eaab0f35832e7a4465c2d1b4b42c9aaaf6fdb9bf14ae341620/th12.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th13",
-    "available": false,
-    "host": "https://touhouonline.com/",
     "number": "13",
     "title": "Ten Desires",
     "japanese": "東方神霊廟",
-    "preview": true,
-    "runtime": "runtime/th13/eb59c7cf7069aa72c0580bcb6fa41ffbfe2ed79f82ce2b24f06ae9bcf0f16fc7/th13.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th15",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "15",
     "title": "Legacy of Lunatic Kingdom",
     "japanese": "東方紺珠伝",
-    "preview": false,
-    "runtime": "runtime/th15/8d8540616649bf1fc3bde2b9f70f79dd6fb729ca5243727e1970545bd043dc6f/th15.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th17",
-    "available": false,
-    "host": "https://touhouonline.com/",
     "number": "17",
     "title": "Wily Beast and Weakest Creature",
     "japanese": "東方鬼形獣",
-    "preview": true,
-    "runtime": "runtime/th17/4c1e6c6c24a785b411b7a35358e7136719a9a1a09405fa8ec6e74429d83568ff/th17.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th19",
-    "available": false,
-    "host": "https://touhouonline.com/",
     "number": "19",
     "title": "Unfinished Dream of All Living Ghost",
     "japanese": "東方獣王園",
-    "preview": true,
-    "runtime": "runtime/th19/6153d968798a6dc5e4607cd837d6ac87069ba5104c994b0a1b99109b7db0c0e3/th19.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   },
   {
     "id": "th20",
-    "available": true,
-    "host": "https://test.touhou.vip/",
     "number": "20",
     "title": "Fossilized Wonders",
     "japanese": "東方錦上京",
-    "preview": true,
-    "runtime": "runtime/th20/057f6f8960695dd52e889da4ba0dbb1a53f6c9de9375061b10bf637fc8c8da16/th20.html?hosted=1"
+    "runtimeInstalled": false,
+    "gameDataInstalled": false
   }
 ]

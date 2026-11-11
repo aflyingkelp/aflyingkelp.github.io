@@ -1,9 +1,9 @@
 {
   "id": "./",
-  "name": "Touhou 10 · Mountain of Faith",
-  "short_name": "Touhou 10",
-  "description": "Play Mountain of Faith using the EAGLER TOUHOU online player.",
-  "start_url": "./play.html",
+  "name": "Your Touhou Library",
+  "short_name": "Touhou",
+  "description": "Self-hosted Touhou launcher and game installation status.",
+  "start_url": "./self-hosted.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0d0d0c",
