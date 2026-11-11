@@ -7,3 +7,7 @@ Touhou 10 browser runtime is installed. Original game data is absent. Other list
 Use self-hosted.html for the current library. The local import launcher is en.html?game=th10; prepare.html makes a local package from a player’s own th10.dat. No original game data is published.
 
 Source and notices: SOURCE.md, LICENSE, THIRD_PARTY.md and licenses/.
+
+## Imports
+
+Every listed game has an import page at import.html?game=GAME_ID. Compatible EAGLER TOUHOU packages are checked and committed to the same local IndexedDB store used by the launcher. Only TH10 currently has its runtime installed. Importing other titles stores their assets but does not supply a missing runtime.
