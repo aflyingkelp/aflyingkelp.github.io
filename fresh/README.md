@@ -26,7 +26,7 @@ Search consumes the project's YouTube API quota. The UI reports missing configur
 
 ### GitHub Pages
 
-`node scripts/build-pages.mjs` creates a static frontend in `pages/`. Publish those four files as `fresh/index.html`, `fresh/app.js`, `fresh/style.css`, and `fresh/pages-client.js` on the Pages publishing branch. The site is available at `/fresh/`. Use **Connect search** to enter a YouTube Data API key. It stays in the current tab's session storage and is sent directly to Google's API, never committed to GitHub. Each new browser session needs a key. Pasted video links and curated videos work without a key.
+`node scripts/build-pages.mjs` creates a static frontend in `pages/`. Publish those four files as `fresh/index.html`, `fresh/app.js`, `fresh/style.css`, and `fresh/pages-client.js` on the Pages publishing branch. The site is available at `/fresh/`. Search automatically calls the public Fresh backend; visitors do not need keys, accounts, or configuration. The backend holds `YOUTUBE_API_KEY` as a runtime secret, allows the Pages origin through CORS, caches repeated searches for ten minutes, and limits uncached requests per IP within each server instance. Pasted video links and curated videos also play in the page.
 
 ### OpenAI Sites
 

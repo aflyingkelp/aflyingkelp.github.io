@@ -20,5 +20,3 @@ async function search(q,pageToken=''){
 }
 $('#load-more').onclick=()=>{if(nextPageToken&&!searchLoading)search(searchTerm,nextPageToken)};
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{controller?.abort();$('#search button').textContent='Search';view=b.dataset.view;topic='All';$('.hero').hidden=view!=='discover'||!$('#player').hidden;render()});$('#shuffle').onclick=()=>{for(let i=order.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()};$('#surprise').onclick=()=>play(videos[Math.floor(Math.random()*videos.length)]);$('#close').onclick=()=>{$('#embed').replaceChildren();$('#player').hidden=true;$('.hero').hidden=view!=='discover'};$('#search').addEventListener('submit',e=>{e.preventDefault();const q=$('#query').value.trim();if(!q){$('#query').value='';$('#query').reportValidity();return}search(q)});render();
-
-window.addEventListener('fresh-key-connected',()=>{if(view==='search'&&searchTerm)search(searchTerm)});
