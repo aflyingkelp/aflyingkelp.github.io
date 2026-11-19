@@ -26,7 +26,7 @@ Search consumes the project's YouTube API quota. The UI reports missing configur
 
 ### GitHub Pages
 
-`node scripts/build-pages.mjs` creates a static frontend in `pages/`. Publish those four files as `fresh/index.html`, `fresh/app.js`, `fresh/style.css`, and `fresh/pages-client.js` on the Pages publishing branch. The site is available at `/fresh/`. Search automatically calls the public Fresh backend; visitors do not need keys, accounts, or configuration. The backend holds `YOUTUBE_API_KEY` as a runtime secret, allows the Pages origin through CORS, caches repeated searches for ten minutes, and limits uncached requests per IP within each server instance. Pasted video links and curated videos also play in the page.
+`node scripts/build-pages.mjs` creates a static frontend in `pages/`. Publish those four files as `fresh/index.html`, `fresh/app.js`, `fresh/style.css`, and `fresh/pages-client.js` on the Pages publishing branch. The site is available at `/fresh/`. Search automatically calls the public Fresh backend; visitors do not need keys, accounts, or configuration. The backend holds `YOUTUBE_API_KEY` as a runtime secret, allows the Pages origin through CORS, caches repeated searches for ten minutes within each server instance, and limits uncached requests per IP within each instance. Pasted video links and curated videos also play in the page.
 
 ### OpenAI Sites
 
