@@ -1,0 +1,3 @@
+import{readFile,mkdir,writeFile}from'node:fs/promises';
+const assets={};for(const[name,type]of[['index.html','text/html; charset=utf-8'],['style.css','text/css; charset=utf-8'],['app.js','text/javascript; charset=utf-8']])assets['/'+name]={type,body:await readFile('web/'+name,'utf8')};
+await mkdir('dist/server',{recursive:true});await mkdir('dist/.openai',{recursive:true});await writeFile('dist/server/index.js','const ASSETS='+JSON.stringify(assets)+';\n'+await readFile('worker/index.js','utf8'));await writeFile('dist/.openai/hosting.json',await readFile('.openai/hosting.json','utf8'));console.log('Built Fresh worker and assets');
