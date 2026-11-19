@@ -1,0 +1,6 @@
+import assert from'node:assert/strict';import{readFile}from'node:fs/promises';
+const source=await readFile('web/social.js','utf8');const rules=source.slice(source.indexOf('const skipWords='),source.indexOf('const knownVideos='));const model=new Function('storeLocal',"let order=[];let taste={words:{},channels:{},seen:{},likes:[],hidden:[]};"+rules+';return{rank,signal,interest,taste}')(()=>{});
+const a={id:'gamingvideo',title:'Gaming challenge',channel:'Gaming channel',topic:'gaming'},b={id:'scienceclip',title:'Science discovery',channel:'Science channel',topic:'science'};
+model.signal(b,3);assert.equal(model.rank([a,b])[0].id,b.id);assert.equal(model.interest(),'science');model.signal(b,-7);assert.equal(model.rank([a,b])[0].id,a.id);model.taste.hidden.push(a.id);assert.equal(model.rank([a,b]).some(v=>v.id===a.id),false);
+const diverse=new Function('storeLocal',"let order=[];let taste={words:{},channels:{},seen:{},likes:[],hidden:[]};"+rules+';return{rank}')(()=>{});const ranked=diverse.rank([{id:'1',title:'A',channel:'repeat'},{id:'2',title:'B',channel:'repeat'},{id:'3',title:'C',channel:'other'}]);assert.notEqual(ranked[0].channel,ranked[1].channel);
+console.log('Passed: positive and negative taste signals, hidden videos, topic selection, channel diversity');

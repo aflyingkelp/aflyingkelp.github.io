@@ -1,0 +1,1 @@
+{"name":"fresh-video-site","private":true,"type":"module","scripts":{"db:generate":"drizzle-kit generate","build":"node scripts/build.mjs && node scripts/build-pages.mjs","test":"node scripts/check.mjs"},"devDependencies":{"drizzle-kit":"0.31.10","drizzle-orm":"0.45.2"}}

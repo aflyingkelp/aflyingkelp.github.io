@@ -3,3 +3,5 @@
 .env
 .env.local
 *.tar.gz
+node_modules/
+.wrangler/

@@ -1,0 +1,2 @@
+import {DatabaseSync} from 'node:sqlite';import {readFileSync,readdirSync} from 'node:fs';
+export function localDb(){const db=new DatabaseSync(':memory:');for(const file of readdirSync('drizzle').filter(f=>f.endsWith('.sql')).sort())db.exec(readFileSync('drizzle/'+file,'utf8'));const binding={prepare(sql){const stmt=db.prepare(sql);let args=[];return{bind(...values){args=values;return this},async all(){return{results:stmt.all(...args)}},async first(){return stmt.get(...args)||null},async run(){const r=stmt.run(...args);return{meta:{changes:r.changes}}}}}};return{db,binding}}

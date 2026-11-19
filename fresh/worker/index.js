@@ -2,22 +2,25 @@ const trustedOrigins=new Set(['https://aflyingkelp.github.io','https://fresh-pla
 const requestWindows=new Map();
 const searchCache=new Map();
 function json(body,status=200,headers={}){return Response.json(body,{status,headers:{'Cache-Control':'no-store',...headers}})}
-function cors(request){const origin=request.headers.get('Origin');return origin&&trustedOrigins.has(origin)?{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, HEAD, OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Max-Age':'86400','Vary':'Origin'}:{}}
+function cors(request){const origin=request.headers.get('Origin');return origin&&trustedOrigins.has(origin)?{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, HEAD, POST, OPTIONS','Access-Control-Allow-Headers':'Content-Type','Access-Control-Max-Age':'86400','Vary':'Origin'}:{}}
 function withCors(response,headers){const result=new Response(response.body,response);for(const[k,v]of Object.entries(headers))result.headers.set(k,v);return result}
 export default {async fetch(request,env,ctx){
- const url=new URL(request.url);const isSearch=url.pathname==='/api/search';const origin=request.headers.get('Origin');const headers=cors(request);
- if(isSearch&&origin&&!trustedOrigins.has(origin))return json({error:'This origin is not allowed.'},403);
- if(isSearch&&request.method==='OPTIONS')return new Response(null,{status:204,headers});
+ const url=new URL(request.url);const isShorts=url.pathname==='/api/shorts';const isSearch=url.pathname==='/api/search'||isShorts;const isChat=url.pathname==='/api/chat'||url.pathname.startsWith('/api/chat/');const origin=request.headers.get('Origin');const headers=cors(request);
+ if((isSearch||isChat)&&origin&&!trustedOrigins.has(origin))return json({error:'This origin is not allowed.'},403);
+ if((isSearch||isChat)&&request.method==='OPTIONS')return new Response(null,{status:204,headers});
+ if(isChat){if(request.method==='POST'&&!origin)return json({error:'Please send messages from Fresh.'},403,headers);return socialApi(request,env,url,headers)}
  if(request.method!=='GET'&&request.method!=='HEAD')return new Response('Method not allowed',{status:405});
  if(isSearch){
   const q=(url.searchParams.get('q')||'').trim();if(!q||q.length>500)return json({error:'Enter a search between 1 and 500 characters.'},400,headers);
   if(!env.YOUTUBE_API_KEY)return json({code:'NOT_CONFIGURED',error:'Search is temporarily unavailable.'},503,headers);
   const pageToken=url.searchParams.get('pageToken')||'';if(pageToken.length>512)return json({error:'Invalid search page. Start a new search.'},400,headers);
-  const cacheKey=JSON.stringify([q.toLowerCase(),pageToken]);const hit=searchCache.get(cacheKey);if(hit&&hit.until>Date.now())return json(hit.payload,200,headers);
+  const cacheKey=JSON.stringify([q.toLowerCase(),pageToken,isShorts]);const hit=searchCache.get(cacheKey);if(hit&&hit.until>Date.now())return json(hit.payload,200,headers);
   const ip=request.headers.get('CF-Connecting-IP');if(ip){const now=Date.now();let bucket=requestWindows.get(ip);if(!bucket||bucket.until<now){bucket={count:0,until:now+600000};requestWindows.set(ip,bucket)}if(++bucket.count>30)return json({error:'Too many searches. Please wait a few minutes and try again.'},429,{...headers,'Retry-After':'600'});if(requestWindows.size>2000)for(const[key,b]of requestWindows)if(b.until<now)requestWindows.delete(key)}
-  const api=new URL('https://www.googleapis.com/youtube/v3/search');api.search=new URLSearchParams({part:'snippet',type:'video',q,maxResults:'50',videoEmbeddable:'true',key:env.YOUTUBE_API_KEY,...(pageToken?{pageToken}:{})}).toString();
+  const api=new URL('https://www.googleapis.com/youtube/v3/search');api.search=new URLSearchParams({part:'snippet',type:'video',q:isShorts?q+' #shorts':q,maxResults:'50',videoEmbeddable:'true',key:env.YOUTUBE_API_KEY,...(isShorts?{videoDuration:'short'}:{}),...(pageToken?{pageToken}:{})}).toString();
   try{const r=await fetch(api,{signal:AbortSignal.timeout(12000)});const data=await r.json();if(!r.ok){const quota=data.error?.errors?.some(e=>['quotaExceeded','dailyLimitExceeded'].includes(e.reason));return json({error:quota?'YouTube search quota is used up. Try again later.':'YouTube search is temporarily unavailable. Please try again later.'},r.status===429?429:502,headers)}
-   const payload={nextPageToken:data.nextPageToken||null,items:(data.items||[]).filter(v=>/^[\w-]{11}$/.test(v.id?.videoId||'')).map(v=>({id:v.id.videoId,title:v.snippet.title,channel:v.snippet.channelTitle,topic:'YouTube'}))};
+   let items=(data.items||[]).filter(v=>/^[\w-]{11}$/.test(v.id?.videoId||'')).map(v=>({id:v.id.videoId,title:v.snippet.title,channel:v.snippet.channelTitle,topic:'YouTube'}));
+   if(isShorts&&items.length){const details=new URL('https://www.googleapis.com/youtube/v3/videos');details.search=new URLSearchParams({part:'contentDetails',id:items.map(v=>v.id).join(','),key:env.YOUTUBE_API_KEY}).toString();const dr=await fetch(details,{signal:AbortSignal.timeout(12000)});if(!dr.ok)return json({error:'Shorts are temporarily unavailable. Please try again.'},502,headers);const ds=await dr.json();const allowed=new Set((ds.items||[]).filter(v=>durationSeconds(v.contentDetails?.duration)<=180).map(v=>v.id));items=items.filter(v=>allowed.has(v.id))}
+   const payload={nextPageToken:data.nextPageToken||null,items};
    if(searchCache.size>=300)searchCache.delete(searchCache.keys().next().value);searchCache.set(cacheKey,{payload,until:Date.now()+600000});
    return json(payload,200,headers);
   }catch{return json({error:'YouTube search timed out. Please try again.'},504,headers)}
