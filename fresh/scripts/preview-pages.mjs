@@ -1,0 +1,3 @@
+import http from 'node:http';import{readFile}from'node:fs/promises';
+const files={'/fresh/':['index.html','text/html'],'/fresh/index.html':['index.html','text/html'],'/fresh/app.js':['app.js','text/javascript'],'/fresh/pages-client.js':['pages-client.js','text/javascript'],'/fresh/style.css':['style.css','text/css']};
+http.createServer(async(req,res)=>{const file=files[new URL(req.url,'http://localhost').pathname];if(!file){res.writeHead(404);res.end('Not found');return}try{res.writeHead(200,{'Content-Type':file[1]+'; charset=utf-8','Cache-Control':'no-store'});res.end(await readFile('pages/'+file[0]))}catch{res.writeHead(500);res.end('Run node scripts/build-pages.mjs first')}}).listen(4174,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4174/fresh/'));
